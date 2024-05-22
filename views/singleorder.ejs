@@ -1,0 +1,63 @@
+<% function renderOrder(order) { %>
+  <div class="item-details">
+    <article>
+      <h2>Title: <%= order.customer %></h2>
+      <div><%= order.totalAmount %></div>
+      <p>
+        <strong>Duration:</strong> <%= order.duration %><br />
+        <strong>Products:</strong> <%= order.products %><br />
+        <strong>Status:</strong> <%= order.status %>
+      </p>
+      <p>
+        <strong>Created By:</strong> <%= order.createdBy %><br />
+        <strong>Created At:</strong> <%= formatDate(order.createdAt) %>
+      </p>
+      <!-- Update button -->
+      <form
+        class="action-form"
+        method="GET"
+        action="/single-order/update/<%= order._id %>"
+      >
+        <button type="submit" class="update">update</button>
+      </form>
+  
+      <!-- Delete button -->
+      <form
+        class="action-form"
+        method="POST"
+        action="/single-order/<%= order._id %>?_method=DELETE"
+      >
+        <button type="submit">delete</button>
+      </form>
+    </article>
+  </div>
+<% } %>
+
+<!-- Function to format date -->
+<% function formatDate(dateString) {
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    return formattedDate;
+} %>
+
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Pass a JavaScript variable to a partial in EJS -->
+  <%- include('partials/head.ejs', { title: order.customer }) %>
+  <body>
+    <%- include('partials/navbar.ejs') %>
+    
+    <%- include('partials/single.ejs') %>
+    <div class="content">
+      <div class="home">
+        <div class="item-list">
+          <% if (order) { %> <%= renderOrder(order) %> <% } else { %>
+          <p>No order found.</p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <%- include('partials/footer.ejs') %>
+  </body>
+</html>

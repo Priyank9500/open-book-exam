@@ -1,0 +1,40 @@
+<!-- addorder.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Pass a JavaScript variable to a partial in EJS -->
+  <%- include('partials/head.ejs', { title: "Place Order" }) %>
+
+  <body>
+    <%- include('partials/navbar') %>
+
+    <div class="content">
+      <div class="create">
+        <h2>Place a New Order</h2>
+        <form action="/placeOrder" method="POST">
+          <label>Customer Name:</label>
+          <input type="text" value="" id="customer" name="customer" required />
+
+          <label for="totalAmount">Total Amount:</label>
+          <input type="number" id="totalAmount" name="totalAmount" required /><br />
+
+          <label for="duration">Duration (in days):</label>
+          <input type="number" id="duration" name="duration" required /><br />
+
+          <label for="products">Products:</label>
+          <textarea id="products" name="products" rows="4" required></textarea><br />
+
+          <label for="status">Status:</label>
+          <select id="status" name="status">
+            <option value="pending">Pending</option>
+            <option value="processing">Processing</option>
+            <option value="completed">Completed</option>
+          </select><br />
+
+          <button type="submit">Place Order</button>
+        </form>
+      </div>
+    </div>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>
